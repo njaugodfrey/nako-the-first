@@ -1,0 +1,31 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>
+            
+            {% block title %}
+                
+            {% endblock title %}
+                
+        </title>
+        <link rel="stylesheet" href="{% static 'css/comics.css' %}"/>
+    </head>
+
+    <body>
+        <header>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{% url "comics:home" %}">Home</a></li>
+                <li><a href="{% url "comics:comics_home" %}">Comic Series</a></li>
+            </ul>
+        </header>
+        <body>
+            
+            {% block body %}
+                
+            {% endblock body %}
+                
+        </body>
+        <footer></footer>
+    </body>
+</html>

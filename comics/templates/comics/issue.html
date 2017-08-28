@@ -1,0 +1,17 @@
+{% extends 'comics/base.html' %}
+
+{% block title %}
+    Comics | {{comic.isssue_title}}
+{% endblock title %}
+    
+
+{% block body %}
+    <img src="{{comic.issue_cover.url}}"/>
+    <p>
+        <h1>{{comic.issue_title}}</h1>
+        <p>{{comic.issue_artist}}</p>
+        <p>{{comic.issue_description}}</p>
+        <p>{{comic.issue_file.url}}</p>
+    </p>
+{% endblock body %}
+    

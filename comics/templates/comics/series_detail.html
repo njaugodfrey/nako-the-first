@@ -1,0 +1,28 @@
+{% extends 'comics/base.html' %}
+
+{% block title %}
+    Comics | {{series.title}}
+{% endblock title %}
+    
+{% block body %}
+    <img src="{{series.cover.url}}"/>
+    <p>
+        <h1>{{series.title}}</h1>
+        <p>{{series.artist}}</p>
+        <p>{{series.description}}</p>
+    </p>
+    
+    {% for i in series.comicissue_set.all %}
+        <li>
+            <a href="{% url 'comics:issue_detail' i.id %}">
+                <img src="{{i.issue_cover.url}}"/>
+            </a>
+            <p><a href="{% url 'comics:issue_detail' i.id %}">
+                {{i.issue_title}}
+                </a>
+            </p>
+        </li>
+    {% endfor %}
+        
+{% endblock body %}
+    

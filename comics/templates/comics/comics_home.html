@@ -1,0 +1,32 @@
+{% extends 'comics/base.html' %}
+
+{% block title %}
+    Comics | Home
+{% endblock title %}
+    
+
+{% block body %}
+    
+    {% if all_series %}
+        <h2>All comics titles</h2>
+        <ul>
+            
+            {% for c in all_series %}
+                <li>
+                    <a href="{% url 'comics:series_detail' c.slug c.id %}">
+                        <img src="{{c.cover.url}}"/>
+                    </a>
+                    <p><a href="{% url 'comics:series_detail' c.slug c.id %}">
+                        {{c.title}}
+                        </a>
+                    </p>
+                </li>
+            {% endfor %}
+                
+        </ul>
+    {% else %}
+        <p>You have no comic books</p>
+    {% endif %}
+        
+{% endblock body %}
+    
