@@ -1,4 +1,4 @@
-{% extends 'comics/base.html' %}
+{% extends 'home/base.html' %}
 
 {% block title %}
     Comics | {{series.title}}
@@ -14,10 +14,10 @@
     
     {% for i in series.comicissue_set.all %}
         <li>
-            <a href="{% url 'comics:issue_detail' i.id %}">
+            <a href="{% url 'comics:issue_detail' i.issue_slug i.id %}">
                 <img src="{{i.issue_cover.url}}"/>
             </a>
-            <p><a href="{% url 'comics:issue_detail' i.id %}">
+            <p><a href="{% url 'comics:issue_detail' i.issue_slug i.id %}">
                 {{i.issue_title}}
                 </a>
             </p>

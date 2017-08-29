@@ -8,9 +8,6 @@ from .models import ComicSeries, ComicIssue
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'comics/home.html', {})
-
 
 class ComicsHome(generic.ListView):
     context_object_name = 'all_series'

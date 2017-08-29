@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -8,10 +9,13 @@ class ComicSeries(models.Model):
 
     # TODO: Define fields here
     title = models.CharField(verbose_name='Series Title', max_length=500)
-    cover = models.ImageField(verbose_name='Series cover', upload_to='comic_series', height_field=None, width_field=None, max_length=None)
+    cover = models.ImageField(verbose_name='Series cover', upload_to='comic_series', 
+            height_field=None, width_field=None, max_length=None
+        )
     description = models.TextField(verbose_name='Description')
     artist = models.CharField(verbose_name='Artist(s)', max_length=500)
     date_uploaded = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(default='')
 
     class Meta:
         """Meta definition for ComicSeries."""
@@ -21,6 +25,10 @@ class ComicSeries(models.Model):
 
     def __str__(self):
         return self.title + ' by ' + self.artist
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(ComicSeries, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('comics:seriesdetail', kwargs={'pk': self.pk})
@@ -39,6 +47,7 @@ class ComicIssue(models.Model):
         help_text='File in pdf or as single image'
     )
     is_favorite = models.BooleanField(default=False)
+    issue_slug = models.SlugField(default='')
 
     class Meta:
         """Meta definition for ComicIssue."""
@@ -48,5 +57,9 @@ class ComicIssue(models.Model):
 
     def __str__(self):
         return self.issue_title + ' issue ' + self.issue
+
+    def save(self, *args, **kwargs):
+        self.issue_slug = slugify(self.issue_title)
+        super(ComicIssue, self).save(*args, **kwargs)
 
 
