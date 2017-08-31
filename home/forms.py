@@ -1,23 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-class UserRegForm(forms.ModelForm):
-    """Form definition for User."""
-    password = forms.CharField(widget=forms.PasswordInput, max_length=100)
-
-    class Meta:
-        """Meta definition for User form."""
-
-        model = User
-        fields = ('username', 'email', 'password',)
-
-class UserLoginForm(forms.ModelForm):
-    """Form definition for UserLogin."""
-    password = forms.CharField(widget=forms.PasswordInput, max_length=100)
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    birth_date = forms.DateField(help_text='Required. Format: YYYY-MM-DD')
 
     class Meta:
-        """Meta definition for UserLoginform."""
-
         model = User
-        fields = ('email', 'password',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'birth_date', 'password1', 'password2', )
 
