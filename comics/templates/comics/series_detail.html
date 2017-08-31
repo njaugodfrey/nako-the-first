@@ -13,7 +13,7 @@
     </p>
     
     {% for i in series.comicissue_set.all %}
-        <li>
+        <li class="series-issue">
             <a href="{% url 'comics:issue_detail' i.issue_slug i.id %}">
                 <img src="{{i.issue_cover.url}}"/>
             </a>

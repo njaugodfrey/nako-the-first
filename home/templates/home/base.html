@@ -9,23 +9,77 @@
             {% endblock title %}
                 
         </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="{% static 'materialize/css/materialize.css' %}"/>
+        <script src="{% static 'materialize/jquery-3.2.1.slim.min.js' %}"></script>
+        <script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/comics.css' %}"/>
     </head>
 
     <body>
         <header>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="{% url "home:home" %}">Home</a></li>
-                <li><a href="{% url "comics:comics_home" %}">Comic Series</a></li>
-            </ul>
+            <div id="nav-container" class="navbar-fixed">
+                <nav>
+                  <div class="nav-wrapper" style="background-color: #009933">
+                    <a href="/" class="brand-logo">Nako E</a>
+                    <a href="#" data-activates="slide-out" class="button-collapse">
+                      <i class="material-icons mdi-navigation-menu">menu</i>
+                    </a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="{% url "home:home" %}">Home</a></li>
+                        <li><a href="{% url "home:register" %}">Create Account</a></li>
+                        <li><a href="{% url "comics:comics_home" %}">Comic Series</a></li>
+                    </ul>
+                    <ul class="side-nav" id="slide-out">
+                        <li><a href="{% url "home:home" %}">Home</a></li>
+                        <li><a href="{% url "home:register" %}">Create Account</a></li>
+                        <li><a href="{% url "comics:comics_home" %}">Comic Series</a></li>
+                    </ul>
+                  </div>
+                </nav>
+            </div>
         </header>
-        <body>
-            
-            {% block body %}
-                
-            {% endblock body %}
-                
-        </body>
+
+        <main>
+            <div class="container" id="main-container">
+                {% block body %}
+                    
+                {% endblock body %}
+            </div>  
+        </main>
+
+
+        <script>
+			$(document).ready(function(){
+                $('.button-collapse').sideNav({
+                    menuWidth: 300, // Default is 240
+                    edge: 'left', // Choose the horizontal origin
+                    closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                    draggable: true,
+                });
+                $('.collapsible').collapsible({
+                    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+                $('#aside').pushpin({ top:110, bottom:500 });
+  		});
+		</script>
+
+        <script>
+            $(document).ready(function(){
+                $('.collapsible').collapsible({
+                accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+                $('select').material_select();
+            });
+        </script>
+
+        <script>
+            function goBack() {
+                window.history.back()
+            }
+        </script>
+
         <footer></footer>
     </body>
 </html>

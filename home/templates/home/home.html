@@ -7,5 +7,17 @@
 
 {% block body %}
     <h2>Welcome Home</h2>
+
+    <div class="series">
+        {% for s in series %}
+            <div class="series-inner card-panel small">
+            {% if s.cover %}
+                <img src="{{s.cover.url}}"/>
+            {% endif %}
+            <h6><a href="{% url 'comics:series_detail' s.slug s.id %}">{{s.title}}</a><h6>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock body %}
     
