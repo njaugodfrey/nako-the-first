@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.core.urlresolvers import reverse_lazy
+from django.views import generic
 from django.views.generic import View
 from django.contrib.auth import authenticate, login
 from comics.models import ComicIssue, ComicSeries
-from .forms import UserForm
+from .forms import UserRegForm, UserLoginForm
 
 # Create your views here.
 
@@ -11,17 +13,17 @@ def home(request):
     return render(request, 'home/home.html', {'series':series})
 
 
-class UserFormView(View):
-    form_class = UserForm
+class UserRegFormView(View):
+    form_class = UserRegForm
     template_name = 'home/registration_form.html'
 
     def get(self, request):
         form = self.form_class(None)
-        return render(request, self.template_name, {'form': form})
-
+        return render(request, self.template_name, {'form':form})
+    
     def post(self, request):
         form = self.form_class(request.POST)
-
+        
         if form.is_valid():
             user = form.save(commit=False)
 
@@ -38,5 +40,5 @@ class UserFormView(View):
                 if user.is_active:
                     login(request, user)
                     return redirect('home:home')
-            
-            return render(request, self.template_name, {'form': form})
+                    
+        return render(request, self.template_name, {'form':form})

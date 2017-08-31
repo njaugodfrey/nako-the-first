@@ -5,5 +5,5 @@ app_name = 'home'
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
-    url(r'^register/$', views.UserFormView.as_view(), name='register')
+    url(r'^register/$', views.UserRegFormView.as_view(), name='register')
 ]
