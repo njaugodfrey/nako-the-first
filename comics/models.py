@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -8,6 +9,9 @@ class ComicSeries(models.Model):
     """Model definition for ComicSeries."""
 
     # TODO: Define fields here
+    user = models.ForeignKey(User, on_delete=models.CASCADE, 
+            null=True, blank=True, verbose_name='Uploaded by: '
+        )
     title = models.CharField(verbose_name='Series Title', max_length=500)
     cover = models.ImageField(verbose_name='Series cover', upload_to='comic_series', 
             height_field=None, width_field=None, max_length=None
@@ -31,13 +35,16 @@ class ComicSeries(models.Model):
         super(ComicSeries, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('comics:seriesdetail', kwargs={'pk': self.pk})
+        return reverse('comics:series_detail', kwargs={'slug':self.slug,'pk': self.pk})
 
 
 class ComicIssue(models.Model):
     """Model definition for ComicIssue."""
 
     # TODO: Define fields here
+    user = models.ForeignKey(User, on_delete=models.CASCADE, 
+            null=True, blank=True, verbose_name='Uploaded by: '
+        )
     title = models.ForeignKey(ComicSeries, on_delete=models.CASCADE, verbose_name='Series Title')
     issue = models.CharField(verbose_name='Issue Number', max_length=500)
     issue_title = models.CharField(verbose_name='Issue Title', max_length=1000)
@@ -61,5 +68,8 @@ class ComicIssue(models.Model):
     def save(self, *args, **kwargs):
         self.issue_slug = slugify(self.issue_title)
         super(ComicIssue, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('comics:issue_detail', kwargs={'issue_slug':self.issue_slug,'pk': self.pk})
 
 

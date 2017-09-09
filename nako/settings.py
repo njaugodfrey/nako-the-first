@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'comics',
-    'photography',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +125,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = 'home:home'
+LOGIN_URL = 'home:login'

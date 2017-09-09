@@ -3,9 +3,16 @@
 {% block title %}
     Comics | Home
 {% endblock title %}
+
+{% block addlinks %}
+    <li><a href="{% url "comics:comic-series-add" %}">Add Series</a></li> 
+{% endblock addlinks %}
     
 
 {% block body %}
+    <button class="btn white-text black">
+        <a href="{% url "comics:comic-series-add" %}">Add Series</a>
+    </button>
     
     {% if all_series %}
         <h2>All comics titles</h2>

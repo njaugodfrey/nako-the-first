@@ -9,7 +9,22 @@
     <p>
         <h1>{{series.title}}</h1>
         <p>{{series.artist}}</p>
+        <p>{{series.user}}</p>
         <p>{{series.description}}</p>
+        <button class="btn white-text black">
+                <a href="{% url "comics:comic-issue-add" %}">Add Issue</a>
+            </button>
+        <button class="btn white-text black">
+            <a href="{% url "comics:comic-series-update" series.slug series.id %}">Edit Series</a>
+        </button>
+        <!-- Delete -->
+        <form action="{% url 'comics:comic-series-delete' series.slug series.id %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="comic_id" value="{{series.slug}} {{series.id}}"/>
+            <button type="submit" class="btn white-text red">
+                Delete
+            </button>
+        </form>
     </p>
     
     {% for i in series.comicissue_set.all %}
