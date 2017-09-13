@@ -3,6 +3,6 @@ img{
     max-width: 200px;
 }
 
-.series-issue{
+.series, .series-issue{
     list-style: none;
 }

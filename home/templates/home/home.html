@@ -10,11 +10,13 @@
 
     <div class="series">
         {% for s in series %}
-            <div class="series-inner card-panel small">
-            {% if s.cover %}
-                <img src="{{s.cover.url}}"/>
-            {% endif %}
-            <h6><a href="{% url 'comics:series_detail' s.slug s.id %}">{{s.title}}</a><h6>
+            <div class="series-inner">
+                <a href="{% url 'comics:series_detail' s.slug s.id %}">
+                {% if s.cover %}
+                    <img src="{{s.cover.url}}"/>
+                {% endif %}
+                <h6>{{s.title}}<h6>
+                </a>
             </div>
         {% endfor %}
     </div>

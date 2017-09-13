@@ -11,12 +11,15 @@
         <p>{{series.artist}}</p>
         <p>{{series.user}}</p>
         <p>{{series.description}}</p>
-        <button class="btn white-text black">
-                <a href="{% url "comics:comic-issue-add" %}">Add Issue</a>
-            </button>
-        <button class="btn white-text black">
-            <a href="{% url "comics:comic-series-update" series.slug series.id %}">Edit Series</a>
-        </button>
+        
+        
+        {% if user.is_authenticated %}
+        <a href="{% url "comics:comic-issue-add" %}">
+            <button class="btn white-text black">Add Issue</button>
+        </a>
+        <a href="{% url "comics:comic-series-update" series.slug series.id %}">
+            <button class="btn white-text black">Edit Series</button>
+        </a>
         <!-- Delete -->
         <form action="{% url 'comics:comic-series-delete' series.slug series.id %}" method="post" style="display: inline;">
             {% csrf_token %}
@@ -25,8 +28,11 @@
                 Delete
             </button>
         </form>
+        {% endif %}
+            
     </p>
     
+    <p>
     {% for i in series.comicissue_set.all %}
         <li class="series-issue">
             <a href="{% url 'comics:issue_detail' i.issue_slug i.id %}">
@@ -38,6 +44,7 @@
             </p>
         </li>
     {% endfor %}
+    </p>
         
 {% endblock body %}
     

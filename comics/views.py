@@ -43,12 +43,12 @@ class ComicSeriesDelete(LoginRequiredMixin, DeleteView):
 
 # Series Issues
 
-'''class IssueList(generic.ListView):
+class IssueList(generic.ListView):
     context_object_name = 'all_issues'
     template_name = "comics/series_detail.html"
 
     def get_queryset(self):
-        return ComicIssue.objects.all()'''
+        return ComicIssue.objects.all()
 
 class IssueDetailView(generic.DetailView):
     model = ComicIssue
@@ -58,14 +58,11 @@ class IssueDetailView(generic.DetailView):
 
 class ComicIssueCreate(LoginRequiredMixin, CreateView):
     model = ComicIssue
-    fields = ['issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file']
+    fields = ['title', 'issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file']
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.title = self.request.title
         return super(ComicIssueCreate, self).form_valid(form)
-    def get_initial(self):
-        series = get_object_or_404(ComicSeries, slug=self.kwargs.get('slug'), pk=self.kwargs.get('pk'))
-        return {'series':series}
 
 
 class ComicIssueUpdate(LoginRequiredMixin, UpdateView):
@@ -75,6 +72,6 @@ class ComicIssueUpdate(LoginRequiredMixin, UpdateView):
 
 class ComicIssueDelete(LoginRequiredMixin, DeleteView):
     model = ComicIssue
-    success_url = reverse_lazy('comics:series_detail')
+    success_url = reverse_lazy('comics:comics_home')
 
 

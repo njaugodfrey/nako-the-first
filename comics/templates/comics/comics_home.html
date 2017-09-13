@@ -10,16 +10,16 @@
     
 
 {% block body %}
-    <button class="btn white-text black">
-        <a href="{% url "comics:comic-series-add" %}">Add Series</a>
-    </button>
+    <a href="{% url "comics:comic-series-add" %}">
+        <button class="button">Add Series</button>
+    </a>
     
     {% if all_series %}
         <h2>All comics titles</h2>
         <ul>
             
             {% for c in all_series %}
-                <li>
+                <li class="series">
                     <a href="{% url 'comics:series_detail' c.slug c.id %}">
                         <img src="{{c.cover.url}}"/>
                     </a>

@@ -11,18 +11,18 @@
     <form class="form", action="", method="POST", enctype="multipart/form-data">
       {% csrf_token %}
       {% for field in form %}
-        <div class="form-group form">
-            <span class="text-danger small">
+        <div class="">
+            <span class="">
                 {{field.errors}}
             </span>
         </div>
-        <label class="control-label col-sm-2">
+        <label class="">
             {{field.label_tag}}
             {{field.help_text}}
         </label>
-        <div class="col-sm-10">{{field}}</div>
+        <div class="">{{field}}</div>
       {% endfor %}
-      <button type="submit" class="btn grey-text black">Add</button>
+      <button type="submit" class="button button-primary">Add</button>
     </form>
   </div>
 {% endblock body %}

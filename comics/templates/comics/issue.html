@@ -9,21 +9,26 @@
     <img src="{{comic.issue_cover.url}}"/>
     <p>
         <h1>{{comic.issue_title}}</h1>
+        <p>{{comic.title}}</p>
         <p>{{comic.issue_artist}}</p>
         <p>{{comic.user}}</p>
         <p>{{comic.issue_description}}</p>
         <p>{{comic.issue_file.url}}</p>
-        <button class="btn white-text black">
-            <a href="{% url "comics:comic-issue-update" issue.issue_slug issue.id %}">Edit issue</a>
-        </button>
-        <!-- Delete -->
-        <form action="{% url 'comics:comic-issue-delete' issue.issue_slug issue.id %}" method="post" style="display: inline;">
-            {% csrf_token %}
-            <input type="hidden" name="comic_id" value="{{issue.issue_slug}} {{issue.id}}"/>
-            <button type="submit" class="btn white-text red">
-                Delete
-            </button>
-        </form>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url "comics:comic-issue-update" comic.issue_slug comic.id %}">
+                <button class="btn white-text black">Edit issue</button>
+            </a>
+            <!-- Delete -->
+            <form action="{% url 'comics:comic-issue-delete' comic.issue_slug comic.id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="comic_id" value="{{comic.issue_slug}} {{comic.id}}"/>
+                <button type="submit" class="btn white-text red">
+                    Delete
+                </button>
+            </form>
+        {% endif %}
+            
         <iframe src="{{comic.issue_file.url}}" style="width:718px; height:700px;" frameborder="0"></iframe>        
     </p>
 {% endblock body %}
