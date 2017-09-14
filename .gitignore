@@ -1,9 +1,10 @@
 *.pyc
 __pycache__
 db.sqlite3
-/static
+/static/admin
 .DS_Store
-/media
 .idea
-/media
+/media/comic_issues
+/media/comic_issues_files
+/media/comic_series
 /.vscode
