@@ -10,9 +10,11 @@ class Profile(models.Model):
 
     # TODO: Define fields here
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='avatar', default='avatar/default.png')
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(blank=True, max_length=50)
     birth_date = models.DateField(null=True, blank=True)
+    website = models.URLField(max_length=200, blank=True)
 
     class Meta:
         """Meta definition for Profile."""

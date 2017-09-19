@@ -12,8 +12,14 @@
                 
             {% endblock title %}
         </title>
-        <meta name="description" content="">
-        <meta name="author" content="">
+
+        <!-- SEO Metas
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        
+        {% block meta %}
+            
+        {% endblock meta %}
+            
 
         <!-- Mobile Specific Metas
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -27,8 +33,12 @@
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <link rel="stylesheet" href="{% static 'skeleton/css/normalize.css' %}">
         <link rel="stylesheet" href="{% static 'skeleton/css/skeleton.css' %}">
-        <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
-        <link rel="stylesheet" href="{% static 'css/comics.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/nako.css' %}"/>
+
+        <!-- CSS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <script src="{% static 'scripts/jquery-3.2.1.slim.min.js' %}"></script>
+        <script src="{% static 'scripts/jquery-3.2.1.slim.min.js' %}"></script>
 
         <!-- Favicon
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -39,9 +49,34 @@
 
         <!-- Primary Page Layout
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+        <div class="navigation">
+            <nav class="navbar">
+                <div class="container">
+                    <ul class="navbar-list">
+                        
+                        {% if user.is_authenticated %}
+                            <li><a class="navbar-link" href="{% url "comics:comics_home" %}">Comics Series</a></li>
+                            <li><a class="navbar-link" href="{% url "home:userprofile" user %}">Profile : {{user.get_username}}</a></li>
+                            <li><a class="navbar-link" href="{% url "home:logout" %}">Logout</a></li>
+                            
+                            {% block pagelinks %}
+                                
+                            {% endblock pagelinks %}
+                                
+                        {% else %}
+                            <li><a class="navbar-link" href="{% url "home:signup" %}">Create Account</a></li>
+                            <li><a class="navbar-link" href="{% url "home:login" %}">Login</a></li>
+                        {% endif %}
+                            
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
         <div class="container">
             <div class="row">
-            <div class="one-half column" style="margin-top: 25%">
+            <div class="two-thirds column" style="margin-top: 5%">
                 
                 {% block body %}
                     

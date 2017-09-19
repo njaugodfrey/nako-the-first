@@ -1,0 +1,135 @@
+a{
+  color: #00cc00;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #969696;
+}
+
+p{
+  text-align: justify;
+}
+
+@media (min-width: 750px) {
+  /* Navbar */
+  .navbar + .docs-section {
+    border-top-width: 0; 
+  }
+  .navbar,
+  .navbar-spacer {
+    display: block;
+    width: 100%;
+    height: 6.5rem;
+    background: #00cc00;
+    z-index: 99;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eeeeee; 
+  }
+  .navbar-spacer {
+    display: none; }
+  .navbar > .container {
+    width: 100%; 
+  }
+  .navbar-list {
+    list-style: none;
+    display: inline-flex;
+    margin-bottom: 0; 
+  }
+  .navbar-item {
+    position: relative;
+    float: left;
+    margin-bottom: 0; 
+  }
+  .navbar-link {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2rem;
+    margin-right: 35px;
+    text-decoration: none;
+    line-height: 6.5rem;
+    color: #222;
+  }
+}
+
+@media (max-width: 750px) {
+  /* Navbar */
+  .navbar + .docs-section {
+    border-top-width: 0; 
+  }
+  .navbar,
+  .navbar-spacer {
+    display: block;
+    width: 100%;
+    background: #00cc00;
+    z-index: 99;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eeeeee; 
+  }
+  .navbar-spacer {
+    display: none; }
+  .navbar > .container {
+    width: 100%; 
+  }
+  .navbar-list {
+    list-style: none;
+    margin-bottom: 0; 
+  }
+  .navbar-item {
+    position: relative;
+    float: left;
+    margin-bottom: 0; 
+  }
+  .navbar-link {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2rem;
+    margin-right: 35px;
+    text-decoration: none;
+    line-height: 6.5rem;
+    color: #222;
+  }
+}
+
+img{
+  max-height: 300px;
+  max-width: 200px;
+}
+
+button{
+  background-color: #00cc00;
+  border-color: #808080;
+  color: #000000;
+}
+
+.home-series-inner{
+  list-style: none;
+  float: left;
+  margin-left: 5px;
+}
+
+.series{
+  list-style: none;
+  width: 100%;
+}
+
+.series-a{
+  width: 100%;
+}
+
+.series-b{
+  float: left;
+  margin-right: 10px;
+}
+
+.series-c{
+  float: right;
+  width: 45%;
+  margin-left: 10px;
+}
+
+.series-issue{
+  list-style: none;
+}

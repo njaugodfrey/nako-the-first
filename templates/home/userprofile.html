@@ -1,0 +1,24 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+    Nako | {{ usr.profile.user.get_full_name }}
+{% endblock title %}
+
+
+{% block meta %}
+    <meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="{{ usr.profile.user.get_full_name }} (@{{ usr.profile.user.username }})" />
+    <meta property="og:description"        content="{{ usr.profile.bio }}" />
+    <meta property="og:image"              content="{{ usr.profile.header.url }}" />
+{% endblock meta %}
+    
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% include "home/userprofile_info.html" %}
+    </div>
+</div>
+{% endblock body %}
+    

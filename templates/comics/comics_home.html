@@ -1,15 +1,32 @@
 {% extends 'home/base.html' %}
+{% load staticfiles %}
 
 {% block title %}
     Comics | Home
 {% endblock title %}
 
-{% block addlinks %}
+{% block meta %}
+    <meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"               content="website" />
+    
+    {% for m in all_series %}
+        <meta property="og:title"              content="{{ m.title }}" />
+        <meta property="og:description"        content="{{ m.description }}" />
+        <meta property="og:image"              content="{{ m.cover }}" />
+    {% endfor %}
+        
+{% endblock meta %}
+    
+
+{% block pagelinks %}
     <li><a href="{% url "comics:comic-series-add" %}">Add Series</a></li> 
-{% endblock addlinks %}
+{% endblock pagelinks %}
     
 
 {% block body %}
+<script src="{% static 'succinct/jQuery.succinct.min.js' %}"></script>
+<script src="{% static 'succinct/jQuery.succinct.js' %}"></script>
+
     <a href="{% url "comics:comic-series-add" %}">
         <button class="button">Add Series</button>
     </a>
@@ -19,14 +36,28 @@
         <ul>
             
             {% for c in all_series %}
-                <li class="series">
-                    <a href="{% url 'comics:series_detail' c.slug c.id %}">
-                        <img src="{{c.cover.url}}"/>
-                    </a>
-                    <p><a href="{% url 'comics:series_detail' c.slug c.id %}">
-                        {{c.title}}
-                        </a>
-                    </p>
+                <li class="series two-thirds column">
+                    <div class="series-a">
+                        <div class="series-b">
+                            <a href="{% url 'comics:series_detail' c.slug c.id %}">
+                                <img src="{{c.cover.url}}"/>
+                            </a>
+                            <p><a href="{% url 'comics:series_detail' c.slug c.id %}">
+                                {{c.title}}
+                                </a>
+                            </p>
+                        </div>
+                        <div class="series-c">
+                            <p class="minimize">{{c.description}}</p>
+                            <script>
+                                $(function(){
+                                $('.minimize').succinct({
+                                    size: 100
+                                });
+                                });
+                            </script>
+                        </div>
+                    </div>
                 </li>
             {% endfor %}
                 

@@ -3,14 +3,22 @@
 {% block title %}
     Nako | Home
 {% endblock title %}
+
+{% block meta %}
+    <meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="Nako comics East Africa" />
+    <meta property="og:description"        content="The best comics books from Kenya, East Africa and Africa" />
+    <meta property="og:image"              content="" />
+{% endblock meta %}
     
 
 {% block body %}
-    <h2>Welcome Home</h2>
+    <h2>Newest comics titles available</h2>
 
-    <div class="series">
-        {% for s in series %}
-            <div class="series-inner">
+    <div class="home-series">
+        {% for s in home_series %}
+            <div class="home-series-inner">
                 <a href="{% url 'comics:series_detail' s.slug s.id %}">
                 {% if s.cover %}
                     <img src="{{s.cover.url}}"/>

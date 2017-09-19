@@ -3,6 +3,17 @@
 {% block title %}
     Comics | {{series.title}}
 {% endblock title %}
+
+{% block meta %}
+    <meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="{{ series.title }}" />
+    <meta property="og:title"              content="{{ series.artist }}" />
+    <meta property="og:title"              content="{{ series.user.get_full_name }}" />
+    <meta property="og:description"        content="{{ series.description }}" />
+    <meta property="og:image"              content="{{ series.cover.url }}" />
+{% endblock meta %}
+    
     
 {% block body %}
     <img src="{{series.cover.url}}"/>
