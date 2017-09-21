@@ -1,0 +1,11 @@
+<img style="width:100%" src="{{series.cover.url}}"/>
+<p>
+    <h2>{{series.title}}</h2>
+    <p><em><b>Artist(s) : {{series.artist}}</b></em></p>
+    <p>
+        <a href="{% url 'home:userprofile' series.user.username %}">
+            @{{series.user}}
+        </a>
+    </p>
+    <p>{{series.description}}</p>
+</p>

@@ -39,6 +39,17 @@ class ComicSeriesUpdate(LoginRequiredMixin, UpdateView):
 class ComicSeriesDelete(LoginRequiredMixin, DeleteView):
     model = ComicSeries
     success_url = reverse_lazy('comics:comics_home')
+    
+    def user_passes_test(self, request):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.user == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.user_passes_test(request):
+            return redirect('comics:comics_home')
+        return super(ComicSeriesDelete, self).dispatch(request, *args, **kwargs)
 
 
 # Series Issues
@@ -73,5 +84,16 @@ class ComicIssueUpdate(LoginRequiredMixin, UpdateView):
 class ComicIssueDelete(LoginRequiredMixin, DeleteView):
     model = ComicIssue
     success_url = reverse_lazy('comics:comics_home')
+    
+    def user_passes_test(self, request):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.user == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.user_passes_test(request):
+            return redirect('comics:comics_home')
+        return super(ComicSeriesDelete, self).dispatch(request, *args, **kwargs)
 
 

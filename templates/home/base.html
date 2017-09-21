@@ -31,60 +31,96 @@
 
         <!-- CSS
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-        <link rel="stylesheet" href="{% static 'skeleton/css/normalize.css' %}">
-        <link rel="stylesheet" href="{% static 'skeleton/css/skeleton.css' %}">
+        <link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection"/>
         <link rel="stylesheet" href="{% static 'css/nako.css' %}"/>
 
-        <!-- CSS
+        <!-- JavaScript
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <script src="{% static 'scripts/jquery-3.2.1.slim.min.js' %}"></script>
-        <script src="{% static 'scripts/jquery-3.2.1.slim.min.js' %}"></script>
+        <script src="{% static 'succinct/jQuery.succinct.min.js' %}"></script>
+        <script src="{% static 'succinct/jQuery.succinct.js' %}"></script>
+        <script src="{% static 'materialize/js/materialize.min.js' %}"></script>
 
         <!-- Favicon
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-        <link rel="icon" type="image/png" href="{% static 'skeleton/images/favicon.png' %}">
+        <link rel="icon" type="image/png" href="{% static 'images/favicon.svg' %}">
 
     </head>
+    
     <body>
 
         <!-- Primary Page Layout
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-        <div class="navigation">
-            <nav class="navbar">
-                <div class="container">
-                    <ul class="navbar-list">
-                        
-                        {% if user.is_authenticated %}
-                            <li><a class="navbar-link" href="{% url "comics:comics_home" %}">Comics Series</a></li>
-                            <li><a class="navbar-link" href="{% url "home:userprofile" user %}">Profile : {{user.get_username}}</a></li>
-                            <li><a class="navbar-link" href="{% url "home:logout" %}">Logout</a></li>
-                            
-                            {% block pagelinks %}
-                                
-                            {% endblock pagelinks %}
-                                
-                        {% else %}
-                            <li><a class="navbar-link" href="{% url "home:signup" %}">Create Account</a></li>
-                            <li><a class="navbar-link" href="{% url "home:login" %}">Login</a></li>
-                        {% endif %}
-                            
-                    </ul>
-                </div>
-            </nav>
-        </div>
+        <header>
+            <div id="nav-container" class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper black-text">
+                        <a href="/" class="brand-logo"><img class="logo" src="{% static 'images/nako_logo.svg' %}" alt="Logo"/></a>
+                        <a href="#" data-activates="slide-out" class="button-collapse">
+                            <i class="material-icons mdi-navigation-menu">Menu</i>
+                        </a>
+                        <ul class="right hide-on-med-and-down">
+                            {% if user.is_authenticated %}
+                                <li><a class="navbar-link" href="{% url "comics:comics_home" %}">Comics Series</a></li>
+                                <li><a class="navbar-link" href="{% url "home:userprofile" user %}">Profile : {{user.get_username}}</a></li>
+                                <li><a class="navbar-link" href="{% url "home:logout" %}">Logout</a></li>
+                            {% else %}
+                                <li><a class="navbar-link" href="{% url "home:signup" %}">Create Account</a></li>
+                                <li><a class="navbar-link" href="{% url "home:login" %}">Login</a></li>
+                            {% endif %}
+                        </ul>
+                        <ul class="side-nav" id="slide-out">
+                            {% if user.is_authenticated %}
+                                <li><a class="navbar-link" href="{% url "comics:comics_home" %}">Comics Series</a></li>
+                                <li><a class="navbar-link" href="{% url "home:userprofile" user %}">Profile : {{user.get_username}}</a></li>
+                                <li><a class="navbar-link" href="{% url "home:logout" %}">Logout</a></li>                                
+                            {% else %}
+                                <li><a class="navbar-link" href="{% url "home:signup" %}">Create Account</a></li>
+                                <li><a class="navbar-link" href="{% url "home:login" %}">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
 
-        <div class="container">
-            <div class="row">
-            <div class="two-thirds column" style="margin-top: 5%">
+        <main>
+            
+            {% block body %}
                 
-                {% block body %}
-                    
-                {% endblock body %}
-                    
-            </div>
-            </div>
-        </div>
+            {% endblock body %}
+                
+        </main>
+        
+        <script>
+			$(document).ready(function(){
+                $('.button-collapse').sideNav({
+                    menuWidth: 300, // Default is 240
+                    edge: 'left', // Choose the horizontal origin
+                    closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                });
+                        $('.collapsible').collapsible({
+                        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                        });
+                        $('#aside').pushpin({ top:110, bottom:500 });
+                });
+                </script>
+
+            <script>
+                $(document).ready(function(){
+                    $('.collapsible').collapsible({
+                    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                    });
+                    $('select').material_select();
+                });
+            </script>
+
+            <script>
+                function goBack() {
+                    window.history.back()
+                }
+	   </script>
 
         <!-- End Document
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->

@@ -17,7 +17,18 @@
 {% block body %}
 <div class="container">
     <div class="row">
+            
         {% include "home/userprofile_info.html" %}
+
+    </div>
+    <div class="row">
+        <div class="container">
+        
+            {% for series in series %}
+                {% include 'comics/post.html' %}
+            {% endfor %}
+            
+        </div>
     </div>
 </div>
 {% endblock body %}

@@ -14,19 +14,28 @@
     
 
 {% block body %}
-    <h2>Newest comics titles available</h2>
 
-    <div class="home-series">
-        {% for s in home_series %}
-            <div class="home-series-inner">
-                <a href="{% url 'comics:series_detail' s.slug s.id %}">
-                {% if s.cover %}
-                    <img src="{{s.cover.url}}"/>
-                {% endif %}
-                <h6>{{s.title}}<h6>
-                </a>
-            </div>
-        {% endfor %}
+    <div class="container">
+        <h2>Newest comics titles available</h2>
+
+        <div class="col s6 m4 l4">
+            {% for s in home_series %}
+                <div class="row">
+                    <div class="card home">
+                        <div class="card-image">
+                            {% if s.cover %}
+                                <img class="materialboxed" src="{{s.cover.url}}"/>
+                            {% endif %}
+                        </div>
+                        <a class="white-text" href="{% url 'comics:series_detail' s.slug s.id %}">
+                            <div class="card-content">
+                                <h6>{{s.title}}<h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock body %}

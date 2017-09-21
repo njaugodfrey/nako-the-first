@@ -39,7 +39,7 @@ class UserUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = User
     form_class = SignUpForm
     template_name = "home/userprofile_edit_userinfo.html"
-    success_url = reverse_lazy('home:userprofile user')
+    success_url = reverse_lazy('home:home')
 
     def get_object(self):
         return self.request.user
@@ -49,7 +49,7 @@ class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Profile
     form_class = UserProfileForm
     template_name = "home/userprofile_edit_userprofile.html"
-    success_url = ('home:userprofile user')
+    success_url = ('home:home')
 
     def form_valid(self, form):
         form.save(self.request.user)
@@ -73,6 +73,3 @@ class ProfileDetailView(generic.DetailView):
         context['series'] = ComicSeries.objects.filter(user = self.get_object())
         return context
     
-
-
-

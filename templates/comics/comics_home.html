@@ -1,5 +1,4 @@
 {% extends 'home/base.html' %}
-{% load staticfiles %}
 
 {% block title %}
     Comics | Home
@@ -16,55 +15,67 @@
     {% endfor %}
         
 {% endblock meta %}
-    
-
-{% block pagelinks %}
-    <li><a href="{% url "comics:comic-series-add" %}">Add Series</a></li> 
-{% endblock pagelinks %}
-    
 
 {% block body %}
-<script src="{% static 'succinct/jQuery.succinct.min.js' %}"></script>
-<script src="{% static 'succinct/jQuery.succinct.js' %}"></script>
-
-    <a href="{% url "comics:comic-series-add" %}">
-        <button class="button">Add Series</button>
-    </a>
-    
-    {% if all_series %}
-        <h2>All comics titles</h2>
-        <ul>
-            
-            {% for c in all_series %}
-                <li class="series two-thirds column">
-                    <div class="series-a">
-                        <div class="series-b">
-                            <a href="{% url 'comics:series_detail' c.slug c.id %}">
-                                <img src="{{c.cover.url}}"/>
-                            </a>
-                            <p><a href="{% url 'comics:series_detail' c.slug c.id %}">
-                                {{c.title}}
-                                </a>
-                            </p>
-                        </div>
-                        <div class="series-c">
-                            <p class="minimize">{{c.description}}</p>
-                            <script>
-                                $(function(){
-                                $('.minimize').succinct({
-                                    size: 100
-                                });
-                                });
-                            </script>
+    <div class="container">
+        <a href="{% url "comics:comic-series-add" %}">
+            <button class="btn white-text black">Add Series</button>
+        </a>
+        
+        {% if all_series %}
+            <h2>All comics titles</h2>
+            <div class="col s6 m4 l4">
+                {% for c in all_series %}
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-image">
+                                <img class="materialboxed" src="{{c.cover.url}}"/>
+                            </div>
+                            <div class="card-content">
+                                <h5>
+                                    <a class="white-text" href="{% url 'comics:series_detail' c.slug c.id %}">
+                                        {{c.title}}
+                                    </a>
+                                </h5>
+                                <p class="minimize black-text">{{c.description}}</p>
+                                <script>
+                                    $(function(){
+                                    $('.minimize').succinct({
+                                        size: 100
+                                    });
+                                    });
+                                </script>
+                            </div>
                         </div>
                     </div>
-                </li>
-            {% endfor %}
-                
-        </ul>
-    {% else %}
-        <p>You have no comic books</p>
-    {% endif %}
-        
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>There are no comic books</p>
+        {% endif %}
+    </div>
 {% endblock body %}
     
+<li class="series two-thirds column">
+        <div class="series-a">
+            <div class="series-b">
+                <a href="{% url 'comics:series_detail' c.slug c.id %}">
+                    <img src="{{c.cover.url}}"/>
+                </a>
+                <p><a href="{% url 'comics:series_detail' c.slug c.id %}">
+                    {{c.title}}
+                    </a>
+                </p>
+            </div>
+            <div class="series-c">
+                <p class="minimize">{{c.description}}</p>
+                <script>
+                    $(function(){
+                    $('.minimize').succinct({
+                        size: 100
+                    });
+                    });
+                </script>
+            </div>
+        </div>
+    </li>
