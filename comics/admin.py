@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ComicIssue, ComicSeries
+from .models import ComicIssue, ComicSeries, Comment
 
 # Register your models here.
 
@@ -13,3 +13,5 @@ class ComicIssueAdmin(admin.ModelAdmin):
     prepopulated_fields = {'issue_slug': ('issue_title',)}
 
 admin.site.register(ComicIssue, ComicIssueAdmin)
+
+admin.site.register(Comment)

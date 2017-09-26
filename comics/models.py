@@ -6,9 +6,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class ComicSeries(models.Model):
-    """Model definition for ComicSeries."""
-
-    # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE, 
             null=True, blank=True, verbose_name='Uploaded by: '
         )
@@ -22,13 +19,12 @@ class ComicSeries(models.Model):
     slug = models.SlugField(default='')
 
     class Meta:
-        """Meta definition for ComicSeries."""
 
         verbose_name = 'Comic Series'
         verbose_name_plural = 'Comic Series'
 
     def __str__(self):
-        return self.title + ' by ' + self.artist
+        return '{}'.format(self.title)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -39,9 +35,6 @@ class ComicSeries(models.Model):
 
 
 class ComicIssue(models.Model):
-    """Model definition for ComicIssue."""
-
-    # TODO: Define fields here
     user = models.ForeignKey(User, on_delete=models.CASCADE, 
             null=True, blank=True, verbose_name='Uploaded by: '
         )
@@ -53,17 +46,17 @@ class ComicIssue(models.Model):
     issue_file = models.FileField(verbose_name='Issue file', upload_to='comic_issues_files', max_length=100,
         help_text='File in pdf or as single image'
     )
+    date_added = models.DateTimeField(auto_now_add=True, null=True)
     is_favorite = models.BooleanField(default=False)
     issue_slug = models.SlugField(default='')
 
     class Meta:
-        """Meta definition for ComicIssue."""
 
         verbose_name = 'Comic Issue'
         verbose_name_plural = 'Comic Issues'
 
     def __str__(self):
-        return self.issue_title + ' issue ' + self.issue
+        return '{}: {} issue number - {}'.format(self.title.title, self.issue_title, self.issue)
 
     def save(self, *args, **kwargs):
         self.issue_slug = slugify(self.issue_title)
@@ -72,4 +65,18 @@ class ComicIssue(models.Model):
     def get_absolute_url(self):
         return reverse('comics:issue_detail', kwargs={'issue_slug':self.issue_slug,'pk': self.pk})
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    issue = models.ForeignKey(ComicIssue, on_delete=models.CASCADE)
+    text = models.CharField(max_length=500)
+    date_posted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+    def __str__(self):
+        return self.text
 

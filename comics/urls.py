@@ -13,15 +13,16 @@ urlpatterns = [
     url(r'^comic/series/(?P<slug>[-\w\d]+)-(?P<pk>[0-9]+)/delete/$', 
             views.ComicSeriesDelete.as_view(), name='comic-series-delete'
         ),
-    url(r'^comics/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/$',
+    url(r'^comics/(?P<slug>[-\w\d]+)/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/$',
             views.IssueDetailView.as_view(), name='issue_detail'
         ),
-    url(r'^comic/issue/add/$', views.ComicIssueCreate.as_view(), name='comic-issue-add'),
-    url(r'^comic/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/$', 
+    url(r'^comic/issue/(?P<pk>[0-9]+)/add/$', views.ComicIssueCreate.as_view(), name='comic-issue-add'),
+    url(r'^comic/(?P<slug>[-\w\d]+)/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/$', 
             views.ComicIssueUpdate.as_view(), name='comic-issue-update'
         ),
-    url(r'^comic/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/delete/$', 
+    url(r'^comic/(?P<slug>[-\w\d]+)/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/delete/$', 
             views.ComicIssueDelete.as_view(), name='comic-issue-delete'
         ),
+    url(r'^comic/issue/(?P<pk>[0-9]+)/comment/$', views.CommentCreateView.as_view(), name='comment-add'),
 ]
 

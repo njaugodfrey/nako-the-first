@@ -6,23 +6,26 @@
 
 
 {% block body %}
-  <div class="container">
-    <h2>Add new comic issue/chapter</h2>
-    <form class="form", action="", method="POST", enctype="multipart/form-data">
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="">
-            <span class="">
-                {{field.errors}}
-            </span>
-        </div>
-        <label class="">
-            {{field.label_tag}}
-            {{field.help_text}}
-        </label>
-        <div class="">{{field}}</div>
-      {% endfor %}
-      <button type="submit" class="btn white-text black">Add</button>
-    </form>
-  </div>
+    <div class="container">
+        <h2>Add new comic issue/chapter</h2>
+        <form class="form", action="", method="POST", enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="">
+                    <span class="">
+                    {{field.errors}}
+                    </span>
+                </div>
+                <label class="">
+
+                    {{field.label_tag}}
+                    {{field.help_text}}
+                </label>
+                <div class="">
+                    {{field}}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn white-text black">Add</button>
+        </form>
+    </div>
 {% endblock body %}

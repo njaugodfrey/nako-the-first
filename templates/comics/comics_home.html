@@ -29,7 +29,9 @@
                     <div class="row">
                         <div class="card">
                             <div class="card-image">
-                                <img class="materialboxed" src="{{c.cover.url}}"/>
+                                <a class="white-text" href="{% url 'comics:series_detail' c.slug c.id %}">
+                                    <img class="materialboxed" src="{{c.cover.url}}"/>
+                                </a>
                             </div>
                             <div class="card-content">
                                 <h5>
@@ -55,27 +57,3 @@
         {% endif %}
     </div>
 {% endblock body %}
-    
-<li class="series two-thirds column">
-        <div class="series-a">
-            <div class="series-b">
-                <a href="{% url 'comics:series_detail' c.slug c.id %}">
-                    <img src="{{c.cover.url}}"/>
-                </a>
-                <p><a href="{% url 'comics:series_detail' c.slug c.id %}">
-                    {{c.title}}
-                    </a>
-                </p>
-            </div>
-            <div class="series-c">
-                <p class="minimize">{{c.description}}</p>
-                <script>
-                    $(function(){
-                    $('.minimize').succinct({
-                        size: 100
-                    });
-                    });
-                </script>
-            </div>
-        </div>
-    </li>

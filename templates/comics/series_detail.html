@@ -16,6 +16,7 @@
     
     
 {% block body %}
+    <div class="edit"></div>
     <div class="container">
         <img style="width:100%" src="{{series.cover.url}}"/>
         <p>
@@ -32,7 +33,7 @@
             {% if user.is_authenticated %}
                 
                 {% if user == series.user %}
-                    <a href="{% url "comics:comic-issue-add" %}">
+                    <a href="{% url "comics:comic-issue-add" series.id %}">
                         <button class="btn white-text black">Add Issue</button>
                     </a>
                     <a href="{% url "comics:comic-series-update" series.slug series.id %}">
@@ -50,22 +51,21 @@
                 {% endif %}
                     
             {% endif %}
-                
         </p>
         
         <div class="col s6 m4 l4">
             {% for i in series.comicissue_set.all %}
-                <div class="row">
-                    <div class="card">
+                <div class="">
+                    <div class="card issue-list">
                         <div class="card-image">
-                            <a href="{% url 'comics:issue_detail' i.issue_slug i.id %}">
+                            <a href="{% url 'comics:issue_detail' i.title.slug i.issue_slug i.id %}">
                                 <img class="materialboxed" src="{{i.issue_cover.url}}"/>
                             </a>
                         </div>
                         <div class="card-content">
                             <p>
-                                <a class="white-text" href="{% url 'comics:issue_detail' i.issue_slug i.id %}">
-                                    {{i.issue_title}}
+                                <a class="white-text" href="{% url 'comics:issue_detail' i.title.slug i.issue_slug i.id %}">
+                                    {{i.title}} - {{i.issue_title}}
                                 </a>
                             </p>
                         </div>

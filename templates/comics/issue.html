@@ -1,7 +1,7 @@
 {% extends 'home/base.html' %}
 
 {% block title %}
-    Comics | {{comic.issue_title}}
+    Comics | {{comic.issue_title}}-{{comic.issue}}
 {% endblock title %}
 
 {% block meta %}
@@ -16,22 +16,22 @@
     
 
 {% block body %}
-    <img src="{{comic.issue_cover.url}}"/>
+<div class="container">
+    <img style="width:100%" src="{{comic.issue_cover.url}}"/>
     <p>
-        <h1>{{comic.issue_title}}</h1>
+        <h3>{{comic.issue_title}} - <small>{{comic.issue}}</small></h3>
         <p>{{comic.title}}</p>
         <p>{{comic.issue_artist}}</p>
         <p>
-            <a href="{% url 'home:userprofile' series.user.username %}">
-                {{comic.user}}
+            <a href="{% url 'home:userprofile' comic.user.username %}">
+                @{{comic.user}}
             </a>
         </p>
         <p>{{comic.issue_description}}</p>
-        <p>{{comic.issue_file.url}}</p>
         
         {% if user.is_authenticated %}
             
-            {% if user = comic.user %}
+            {% if user == comic.user %}
                 <a href="{% url "comics:comic-issue-update" comic.issue_slug comic.id %}">
                     <button class="btn white-text black">Edit issue</button>
                 </a>
@@ -42,12 +42,25 @@
                     <button type="submit" class="btn white-text red">
                         Delete
                     </button>
+                    <small>Delete forever</small>
                 </form>
             {% endif %}
                 
         {% endif %}
             
-        <iframe src="{{comic.issue_file.url}}" style="width:718px; height:700px;" frameborder="0"></iframe>        
+        <iframe src="{{comic.issue_file.url}}" style="width:100%; height:700px; margin-top: 10px;" frameborder="0"></iframe>
+        <button class="btn white-text black">
+            <a href="{% url 'comics:comment-add' comic.id %}">Comment</a>
+        </button>
+        <div class="">
+            
+            {% for comment in comments %}
+                {{comment.user.username}}
+                {{comment.text}}
+            {% endfor %}
+                
+        </div>
     </p>
+</div>
 {% endblock body %}
     
