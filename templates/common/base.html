@@ -63,21 +63,21 @@
                         <ul class="right hide-on-med-and-down">
                             {% if user.is_authenticated %}
                                 <li><a class="navbar-link" href="{% url "comics:comics_home" %}">Comics Series</a></li>
-                                <li><a class="navbar-link" href="{% url "home:userprofile" user %}">Profile : {{user.get_username}}</a></li>
-                                <li><a class="navbar-link" href="{% url "home:logout" %}">Logout</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:user-profile" user %}">Profile : {{user.get_username}}</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:logout" %}">Logout</a></li>
                             {% else %}
-                                <li><a class="navbar-link" href="{% url "home:signup" %}">Create Account</a></li>
-                                <li><a class="navbar-link" href="{% url "home:login" %}">Login</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:signup" %}">Create Account</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:login" %}">Login</a></li>
                             {% endif %}
                         </ul>
                         <ul class="side-nav" id="slide-out">
                             {% if user.is_authenticated %}
                                 <li><a class="navbar-link" href="{% url "comics:comics_home" %}">Comics Series</a></li>
-                                <li><a class="navbar-link" href="{% url "home:userprofile" user %}">Profile : {{user.get_username}}</a></li>
-                                <li><a class="navbar-link" href="{% url "home:logout" %}">Logout</a></li>                                
+                                <li><a class="navbar-link" href="{% url "userprofile:user-profile" user %}">Profile : {{user.get_username}}</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:logout" %}">Logout</a></li>                                
                             {% else %}
-                                <li><a class="navbar-link" href="{% url "home:signup" %}">Create Account</a></li>
-                                <li><a class="navbar-link" href="{% url "home:login" %}">Login</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:signup" %}">Create Account</a></li>
+                                <li><a class="navbar-link" href="{% url "userprofile:login" %}">Login</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -94,32 +94,32 @@
         </main>
         
         <script>
-			$(document).ready(function(){
+            $(document).ready(function(){
                 $('.button-collapse').sideNav({
                     menuWidth: 300, // Default is 240
                     edge: 'left', // Choose the horizontal origin
                     closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
                 });
-                        $('.collapsible').collapsible({
-                        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-                        });
-                        $('#aside').pushpin({ top:110, bottom:500 });
-                });
-                </script>
-
-            <script>
-                $(document).ready(function(){
-                    $('.collapsible').collapsible({
+                $('.collapsible').collapsible({
                     accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
                     });
-                    $('select').material_select();
-                });
-            </script>
+                    $('#aside').pushpin({ top:110, bottom:500 });
+            });
+        </script>
 
-            <script>
-                function goBack() {
-                    window.history.back()
-                }
+        <script>
+            $(document).ready(function(){
+                $('.collapsible').collapsible({
+                accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+                $('select').material_select();
+            });
+        </script>
+
+        <script>
+            function goBack() {
+                window.history.back()
+            }
 	   </script>
 
         <!-- End Document

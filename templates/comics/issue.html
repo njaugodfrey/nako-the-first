@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'common/base.html' %}
 
 {% block title %}
     Comics | {{comic.issue_title}}-{{comic.issue}}
@@ -11,7 +11,7 @@
     <meta property="og:title"              content="{{ comic.artist }}" />
     <meta property="og:title"              content="{{ comic.user.get_full_name }}" />
     <meta property="og:description"        content="{{ comic.issue_description }}" />
-    <meta property="og:image"              content="{{ comic.title.cover }}" />
+    <meta property="og:image"              content="{{ comic.title.cover.url }}" />
 {% endblock meta %}
     
 
@@ -32,13 +32,13 @@
         {% if user.is_authenticated %}
             
             {% if user == comic.user %}
-                <a href="{% url "comics:comic-issue-update" comic.issue_slug comic.id %}">
+                <a href="{% url "comics:comic-issue-update" comic.title.slug comic.issue_slug comic.id %}">
                     <button class="btn white-text black">Edit issue</button>
                 </a>
                 <!-- Delete -->
-                <form action="{% url 'comics:comic-issue-delete' comic.issue_slug comic.id %}" method="post" style="display: inline;">
+                <form action="{% url 'comics:comic-issue-delete' comic.title.slug comic.issue_slug comic.id %}" method="post" style="display: inline;">
                     {% csrf_token %}
-                    <input type="hidden" name="comic_id" value="{{comic.issue_slug}} {{comic.id}}"/>
+                    <input type="hidden" name="comic_id" value="{{comic.title.slug}} {{comic.issue_slug}} {{comic.id}}"/>
                     <button type="submit" class="btn white-text red">
                         Delete
                     </button>
@@ -52,11 +52,14 @@
         <button class="btn white-text black">
             <a href="{% url 'comics:comment-add' comic.id %}">Comment</a>
         </button>
-        <div class="">
-            
+        <div class="comments" style="margin-top: 15px;">
+            <h5>Comments</h5>
             {% for comment in comments %}
-                {{comment.user.username}}
-                {{comment.text}}
+                <a href="{% url 'home:userprofile' comment.user.username %}">
+                    <img class="circle" style="max-width:30px; max-height:30px;" src="{{comment.user.profile.avatar.url}}"/>
+                    {{comment.user.username}}
+                </a>
+                <p>{{comment.text}}</p>
             {% endfor %}
                 
         </div>

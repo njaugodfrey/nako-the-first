@@ -14,8 +14,8 @@
         {% if user.is_authenticated %}
             
             {% if user == usr.profile.user %}
-                <p><a href="{% url 'home:userprofile_basic' %}">Edit basic details</a></p>
-                <p><a href="{% url 'home:userprofile_extra' %}">Edit profile</a></p>
+                <p><a href="{% url 'userprofile:user-profile-basic' %}">Edit basic details</a></p>
+                <p><a href="{% url 'userprofile:user-profile-extra' %}">Edit profile</a></p>
             {% endif %}
                 
         {% endif %}

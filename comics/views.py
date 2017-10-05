@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from django.views.generic import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView 
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,6 +12,7 @@ from .forms import CommentForm
 class ComicsHome(generic.ListView):
     context_object_name = 'all_series'
     template_name = "comics/comics_home.html"
+    paginate_by = 10
 
     def get_queryset(self):
         return ComicSeries.objects.order_by('-date_uploaded').all()
@@ -37,6 +37,17 @@ class ComicSeriesCreate(LoginRequiredMixin, CreateView):
 class ComicSeriesUpdate(LoginRequiredMixin, UpdateView):
     model = ComicSeries
     fields = ['title', 'cover', 'description', 'artist']
+
+    def user_passes_test(self, request):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.user == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.user_passes_test(request):
+            return redirect('comics:comics_home')
+        return super(ComicSeriesUpdate, self).dispatch(request, *args, **kwargs)
 
 
 class ComicSeriesDelete(LoginRequiredMixin, DeleteView):
@@ -72,24 +83,34 @@ class IssueDetailView(generic.DetailView):
 class ComicIssueCreate(LoginRequiredMixin, CreateView):
     model = ComicIssue
     slug_field = 'comicseries_id'
-    fields = ['issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file']
+    fields = ['issue', 'issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file']
     
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.title = ComicSeries.objects.get(id=self.kwargs['pk'])
         obj.user = self.request.user
         obj.save()
-        return redirect('series_detail', pk=obj.title.id)
+        return redirect('comics:series_detail', pk=obj.title.id, slug=obj.title.slug)
 
 
 class ComicIssueUpdate(LoginRequiredMixin, UpdateView):
     model = ComicIssue
     fields = ['issue', 'issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file']
 
+    def user_passes_test(self, request):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.user == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.user_passes_test(request):
+            return redirect('comics:comics_home')
+        return super(ComicIssueUpdate, self).dispatch(request, *args, **kwargs)
+
 
 class ComicIssueDelete(LoginRequiredMixin, DeleteView):
     model = ComicIssue
-    success_url = reverse_lazy('comics:comics_home')
     
     def user_passes_test(self, request):
         if request.user.is_authenticated():
@@ -102,6 +123,12 @@ class ComicIssueDelete(LoginRequiredMixin, DeleteView):
             return redirect('comics:comics_home')
         return super(ComicIssueDelete, self).dispatch(request, *args, **kwargs)
     
+    def get_success_url(self):
+        comicissue = self.get_object()
+        return reverse_lazy('comics:series_detail', kwargs={'id':comicissue.title.id, 'slug':comicissue.title.slug})
+    
+
+# comments
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
@@ -114,4 +141,4 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         obj.issue = ComicIssue.objects.get(id=self.kwargs['pk'])
         obj.user = self.request.user
         obj.save()
-        return redirect('issue_detail', pk=obj.issue.id)
+        return redirect('comics:issue_detail', pk=obj.issue.id)

@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'common/base.html' %}
 
 {% block title %}
     Nako | {{ usr.profile.user.get_full_name }}
@@ -16,15 +16,15 @@
 
 {% block body %}
     <div class="container">
-        <div class="row profile">
+        <div class="row profile white-text">
                 
-            {% include "home/userprofile_info.html" %}
+            {% include "userprofile/userprofile_info.html" %}
 
         </div>
         <div class="row timeline">
             <h5 style="color: #00bb00; padding-bottom:10px;">Series by {{ usr.profile.user.get_full_name }}</h5>
             {% for series in series %}
-                {% include 'comics/post.html' %}
+                {% include 'common/post.html' %}
             {% endfor %}
         </div>
     </div>

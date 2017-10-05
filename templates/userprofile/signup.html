@@ -1,19 +1,21 @@
 {% extends 'common/base.html' %}
 
 {% block title %}
-    Add new comic series
+    Nako | Sign up
 {% endblock title %}
-
-
+    
 {% block body %}
     <div class="container">
-        <h2>Add new comic series</h2>
-        <form class="form", action="", method="POST", enctype="multipart/form-data">
+        <div class="container">
+            <h2>Sign up</h2>
+            <form method="post">
             {% csrf_token %}
             {% for field in form %}
                 {% include 'common/form.html' %}
             {% endfor %}
-            <button type="submit" class="btn white-text black">Add</button>
-        </form>
+            <button type="submit" class="btn white-text black">Sign up</button>
+            </form>
+        </div>
     </div>
 {% endblock body %}
+    

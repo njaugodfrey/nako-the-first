@@ -1,0 +1,22 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+    Nako | Login
+{% endblock title %}
+    
+{% block body %}
+<div class="container">
+    <div class="container">    
+        <h2>Log in to My Site</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+            {% for field in form %}
+                {% include 'common/form.html' %}
+            {% endfor %}
+            <button type="submit" class="btn white-text black">Log in</button>
+            <a href="{% url 'userprofile:signup' %}">New to My Site? Sign up</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
