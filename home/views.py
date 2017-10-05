@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from comics.models import ComicSeries
+from userprofile.models import Profile
 
 # Create your views here.
 

@@ -20,7 +20,7 @@
 
         <div class="col s6 m4 l4">
             {% for s in home_series %}
-                <div class="">
+                <div class="row home-list">
                     <div class="card home">
                         <div class="card-image">
                             {% if s.cover %}
@@ -36,6 +36,14 @@
                 </div>
             {% endfor %}
         </div>
+
+        
+        {% if user.is_authenticated %}
+            <div class="row profile2 white-text">
+                {% include 'userprofile/userprofile_info.html' %}
+            </div>
+        {% endif %}
+            
     </div>
 
 {% endblock body %}

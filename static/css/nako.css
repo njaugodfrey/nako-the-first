@@ -17,8 +17,8 @@ p{
 
 @media (min-width: 750px) {
   .home, .issue-list{
-    width: 25%;
-    height: 25%;
+    width: 50%;
+    height: 50%;
     float: left;
     margin-left: 10px;
   }
@@ -34,6 +34,18 @@ p{
     float: right;
     width: 65%;
   }
+
+  .profile2{
+    float: right;
+    width: 30%;
+    background-color: #000000;
+    text-align: center;
+  }
+  
+  .home-list{
+    float: left;
+    width: 65%;
+  }
 }
 
 .card{
@@ -43,6 +55,11 @@ p{
 .btn{
   margin-top: 5px;
   margin-left: 5px;
+}
+
+.comment-btn{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 a{

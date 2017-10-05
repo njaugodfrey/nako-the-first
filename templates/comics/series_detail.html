@@ -23,7 +23,7 @@
             <h2>{{series.title}}</h2>
             <p><em><b>Artist(s) : {{series.artist}}</b></em></p>
             <p>
-                <a href="{% url 'home:userprofile' series.user.username %}">
+                <a href="{% url 'userprofile:user-profile' series.user.username %}">
                     @{{series.user}}
                 </a>
             </p>
@@ -53,25 +53,29 @@
             {% endif %}
         </p>
         
-        <div class="col s6 m4 l4">
-            {% for i in series.comicissue_set.all %}
-                <div class="">
-                    <div class="card issue-list">
-                        <div class="card-image">
-                            <a href="{% url 'comics:issue_detail' i.title.slug i.issue_slug i.id %}">
-                                <img class="materialboxed" src="{{i.issue_cover.url}}"/>
-                            </a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                <a class="white-text" href="{% url 'comics:issue_detail' i.title.slug i.issue_slug i.id %}">
-                                    {{i.title}} - {{i.issue_title}}
+        <div class="" style="margin-top:30px;">
+            <table class="bordered">
+                <thead></thead>
+                <tbody>
+                    {% for issue in issues %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'comics:issue_detail' issue.title.slug issue.issue_slug issue.id %}">
+                                    <img class="materialboxed" style="width:50px; height:50px;" src="{{issue.issue_cover.url}}"/>
                                 </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+                            </td>
+                            <td>
+                                <a class="" href="{% url 'comics:issue_detail' issue.title.slug issue.issue_slug issue.id %}">
+                                    {{issue.title}} - {{issue.issue_title}}
+                                </a>
+                            </td>
+                            <td>
+                                {{issue.date_added}}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock body %}

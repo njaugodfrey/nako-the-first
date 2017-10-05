@@ -23,6 +23,11 @@ class ComicsDetailView(generic.DetailView):
     slug_field = 'comicseries_id'
     context_object_name = 'series'
     template_name = "comics/series_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(ComicsDetailView, self).get_context_data(**kwargs)
+        context['issues'] = ComicIssue.objects.filter(title=self.object.id).select_related().order_by('-date_added')
+        return context
 
 
 class ComicSeriesCreate(LoginRequiredMixin, CreateView):
@@ -125,7 +130,9 @@ class ComicIssueDelete(LoginRequiredMixin, DeleteView):
     
     def get_success_url(self):
         comicissue = self.get_object()
-        return reverse_lazy('comics:series_detail', kwargs={'id':comicissue.title.id, 'slug':comicissue.title.slug})
+        return reverse_lazy('comics:series_detail', 
+            kwargs={'id':comicissue.title.id, 'slug':comicissue.title.slug}
+        )
     
 
 # comments
@@ -141,4 +148,6 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         obj.issue = ComicIssue.objects.get(id=self.kwargs['pk'])
         obj.user = self.request.user
         obj.save()
-        return redirect('comics:issue_detail', pk=obj.issue.id)
+        return redirect('comics:issue_detail', 
+            pk=obj.issue.id, issue_slug=obj.issue.issue_slug, slug=obj.issue.title.slug
+        )
