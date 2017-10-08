@@ -1,3 +1,13 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 nav{
   background-color: #00bb00;
 }
@@ -16,9 +26,9 @@ p{
 }
 
 @media (min-width: 750px) {
-  .home, .issue-list{
-    width: 50%;
-    height: 50%;
+  .home{
+    width: 40%;
+    height: 40%;
     float: left;
     margin-left: 10px;
   }
@@ -46,10 +56,6 @@ p{
     float: left;
     width: 65%;
   }
-}
-
-.card{
-  background-color: #00bb00;
 }
 
 .btn{

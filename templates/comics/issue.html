@@ -55,16 +55,25 @@
                 Comment
             </button>
         </a>
-        <div class="comments" style="margin-top: 15px;">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 comments container" style="margin-top: 15px;">
             <h5>Comments</h5>
             {% for comment in comments %}
-                <a href="{% url 'userprofile:user-profile' comment.user.username %}">
-                    <img class="circle" style="max-width:30px; max-height:30px;" src="{{comment.user.profile.avatar.url}}"/>
-                    {{comment.user.username}}
-                </a>
-                <p>{{comment.text}}</p>
+                <div class="card-panel grey lighten-5 z-depth-1">
+                    <div class="row valign-wrapper">
+                        <div class="col s2">
+                            <a href="{% url 'userprofile:user-profile' comment.user.username %}">
+                                <img src="{{comment.user.profile.avatar.url}}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                                @{{comment.user.username}}
+                            </a>
+                        </div>
+                        <div class="col s10">
+                            <span class="black-text">
+                                {{comment.text}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-                
         </div>
     </p>
 </div>

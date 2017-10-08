@@ -12,7 +12,7 @@ from .forms import CommentForm
 class ComicsHome(generic.ListView):
     context_object_name = 'all_series'
     template_name = "comics/comics_home.html"
-    paginate_by = 10
+    paginate_by = 5
 
     def get_queryset(self):
         return ComicSeries.objects.order_by('-date_uploaded').all()

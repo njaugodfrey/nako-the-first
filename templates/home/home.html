@@ -18,31 +18,50 @@
     <div class="container">
         <h2>Latest titles on Nako</h2>
 
+        <div class="profile2 row">
+            {% if user.is_authenticated %}
+                <div class="white-text">
+                    {% if user.profile.header %}
+                    <img class="img-fluid" src="{{ user.profile.header.url}}">
+                    {% endif %}
+                    
+                    <div class="">
+                        <a href="{% url "userprofile:user-profile" user %}">
+                            <img class="circle responsive-img" src="{{ user.profile.avatar.url }}" alt="Profile pic">
+                        </a>
+                        <div class="">
+                            <h5 class="">
+                                {{ user.get_full_name }} 
+                                {% if user.is_staff is True %}<i class="img-circle" aria-hidden="true"></i>{% endif %} 
+                                <small id="">@{{ user.username }}</small>
+                            </h5>
+                            <small>
+                                <p><a href="{% url "comics:comic-series-add" %}">Add Series</a></p>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
         <div class="col s6 m4 l4">
-            {% for s in home_series %}
-                <div class="row home-list">
-                    <div class="card home">
+            <div class="row home-list">
+                {% for series in home_series %}
+                    <div class="card home z-depth-4">
                         <div class="card-image">
-                            {% if s.cover %}
-                                <img class="materialboxed" src="{{s.cover.url}}"/>
+                            {% if series.cover %}
+                                <img class="responsive-img" src="{{series.cover.url}}"/>
                             {% endif %}
                         </div>
-                        <a class="white-text" href="{% url 'comics:series_detail' s.slug s.id %}">
+                        <a class="green-text darken-3" href="{% url 'comics:series_detail' series.slug series.id %}">
                             <div class="card-content">
-                                <h6>{{s.title}}<h6>
+                                <h6>{{series.title}}<h6>
                             </div>
                         </a>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        
-        {% if user.is_authenticated %}
-            <div class="row profile2 white-text">
-                {% include 'userprofile/userprofile_info.html' %}
+                {% endfor %}
             </div>
-        {% endif %}
+        </div>
             
     </div>
 

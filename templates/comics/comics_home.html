@@ -25,32 +25,36 @@
         {% if all_series %}
             <h2>All comics titles</h2>
             <div class="col s6 m4 l4">
-                {% for c in all_series %}
-                    <div class="row">
-                        <div class="card">
+                <div class="row">
+                    {% for c in all_series %}
+                        <div class="card horizontal z-depth-4">
                             <div class="card-image">
-                                <a class="white-text" href="{% url 'comics:series_detail' c.slug c.id %}">
-                                    <img class="materialboxed" src="{{c.cover.url}}"/>
+                                <a class="green-text darken-3" href="{% url 'comics:series_detail' c.slug c.id %}">
+                                    <img class="responsive-img" style="max-height:20em;" src="{{c.cover.url}}"/>
                                 </a>
                             </div>
-                            <div class="card-content">
-                                <h5>
-                                    <a class="white-text" href="{% url 'comics:series_detail' c.slug c.id %}">
-                                        {{c.title}}
-                                    </a>
-                                </h5>
-                                <p class="minimize black-text">{{c.description}}</p>
-                                <script>
-                                    $(function(){
-                                    $('.minimize').succinct({
-                                        size: 100
-                                    });
-                                    });
-                                </script>
+                            <div class="card-stacked">
+                                <div class="card-action">
+                                    <h5>
+                                        <a class="green-text darken-3" href="{% url 'comics:series_detail' c.slug c.id %}">
+                                            {{c.title}}
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div class="card-content">
+                                    <p class="minimize black-text">{{c.description}}</p>
+                                    <script>
+                                        $(function(){
+                                        $('.minimize').succinct({
+                                            size: 100
+                                        });
+                                        });
+                                    </script>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         {% else %}
             <p>There are no comic books</p>
