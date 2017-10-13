@@ -26,23 +26,23 @@
             <h2>All comics titles</h2>
             <div class="col s6 m4 l4">
                 <div class="row">
-                    {% for c in all_series %}
+                    {% for series in all_series %}
                         <div class="card horizontal z-depth-4">
                             <div class="card-image">
-                                <a class="green-text darken-3" href="{% url 'comics:series_detail' c.slug c.id %}">
-                                    <img class="responsive-img" style="max-height:20em;" src="{{c.cover.url}}"/>
+                                <a class="green-text darken-3" href="{% url 'comics:series_detail' series.slug series.id %}">
+                                    <img class="responsive-img" style="max-height:20em;" src="{{series.cover.url}}"/>
                                 </a>
                             </div>
                             <div class="card-stacked">
                                 <div class="card-action">
                                     <h5>
-                                        <a class="green-text darken-3" href="{% url 'comics:series_detail' c.slug c.id %}">
-                                            {{c.title}}
+                                        <a class="green-text darken-3" href="{% url 'comics:series_detail' series.slug series.id %}">
+                                            {{series.title}}
                                         </a>
                                     </h5>
                                 </div>
                                 <div class="card-content">
-                                    <p class="minimize black-text">{{c.description}}</p>
+                                    <p class="minimize black-text">{{series.description}}</p>
                                     <script>
                                         $(function(){
                                         $('.minimize').succinct({
@@ -59,5 +59,38 @@
         {% else %}
             <p>There are no comic books</p>
         {% endif %}
+
+        <div class="">
+            
+            {% if is_paginated %}
+                <ul class="pagination">
+                    
+                    {% if all_series.has_previous %}
+                        <li class="waves-effect"><a href="?page={{ all_series.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                    {% else %}
+                        <li class="disabled"><i class="material-icons">chevron_left</i></li>
+                    {% endif %}
+                    
+                    {% for i in paginator.page_range %}
+                        
+                        {% if all_series.number == i %}
+                            <li class="active"><a href="!#"></a></li>
+                        {% else %}
+                            <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                            
+                    {% endfor %}
+                    
+                    {% if all_series.has_next %}
+                        <li class="waves-effect"><a href="?page={{ all_series.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                    {% else %}
+                        <li class="disabled"><i class="material-icons">chevron_right</i></li>
+                    {% endif %}
+                        
+                </ul>
+            {% endif %}
+                
+        </div>
+
     </div>
 {% endblock body %}

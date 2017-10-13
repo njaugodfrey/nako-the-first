@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views import generic
+from django.shortcuts import render, redirect
+from django.views import generic, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView 
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import ComicSeries, ComicIssue, Comment
-from .forms import CommentForm
+
+from .models import ComicSeries, ComicIssue, Comment, IssuePanel
+from .forms import CommentForm, ComicIssueForm, IssuePanelForm, IssuePanelFormSet
 
 # Create your views here.
 
@@ -13,9 +14,7 @@ class ComicsHome(generic.ListView):
     context_object_name = 'all_series'
     template_name = "comics/comics_home.html"
     paginate_by = 5
-
-    def get_queryset(self):
-        return ComicSeries.objects.order_by('-date_uploaded').all()
+    queryset = ComicSeries.objects.order_by('-date_uploaded').all()
 
 
 class ComicsDetailView(generic.DetailView):
@@ -133,7 +132,7 @@ class ComicIssueDelete(LoginRequiredMixin, DeleteView):
         return reverse_lazy('comics:series_detail', 
             kwargs={'id':comicissue.title.id, 'slug':comicissue.title.slug}
         )
-    
+
 
 # comments
 

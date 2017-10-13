@@ -25,9 +25,10 @@
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- FONT
+        <!-- FONTS & ICONS
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
         <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- CSS
         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -65,6 +66,11 @@
         </main>
         
         {% include 'header/header_script.html' %}
+        
+        {% block javascript %}
+            
+        {% endblock javascript %}
+            
        
        {% block footer %}
            

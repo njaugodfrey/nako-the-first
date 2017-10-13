@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^comic/(?P<slug>[-\w\d]+)/issue/(?P<issue_slug>[-\w\d]+)-(?P<pk>[0-9]+)/delete/$', 
             views.ComicIssueDelete.as_view(), name='comic-issue-delete'
         ),
+    # url(r'^comic/issue/(?P<pk>[0-9]+)/panels/$', views.upload_panel, name='panel-upload'),
     url(r'^comic/issue/(?P<pk>[0-9]+)/comment/$', views.CommentCreateView.as_view(), name='comment-add'),
 ]
 

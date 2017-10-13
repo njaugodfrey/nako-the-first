@@ -44,7 +44,7 @@ class ComicIssue(models.Model):
     issue_cover = models.ImageField(verbose_name='Issue cover', upload_to='comic_issues', height_field=None, width_field=None, max_length=None)
     issue_description = models.TextField(verbose_name='Description')
     issue_file = models.FileField(verbose_name='Issue file', upload_to='comic_issues_files', max_length=100,
-        help_text='File in pdf or as single image'
+        help_text='File in pdf or as single image', null=True, blank=True
     )
     date_added = models.DateTimeField(auto_now_add=True, null=True)
     is_favorite = models.BooleanField(default=False)
@@ -64,6 +64,21 @@ class ComicIssue(models.Model):
 
     def get_absolute_url(self):
         return reverse('comics:issue_detail', kwargs={'issue_slug':self.issue_slug,'pk': self.pk})
+
+
+class IssuePanel(models.Model):
+    def upload_to(self):
+        return 'panels/{}'.format(self.issue.issue_title)
+
+    # TODO: Define fields here
+    issue = models.ForeignKey(ComicIssue, on_delete=models.CASCADE)
+    panel = models.FileField(upload_to=upload_to)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+
+        verbose_name = 'IssuePanel'
+        verbose_name_plural = 'IssuePanels'
 
 
 class Comment(models.Model):

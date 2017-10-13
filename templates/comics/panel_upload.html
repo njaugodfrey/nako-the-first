@@ -1,23 +1,23 @@
 {% extends 'common/base.html' %}
 
 {% block title %}
-    Add new comic issue
+    Nako | Upload panels
 {% endblock title %}
-
 
 {% block body %}
     <div class="container">
-        <h2>Add new comic issue/chapter</h2>
-        <form class="form", action="", method="POST", enctype="multipart/form-data">
+        <form enctype="multipart/form-data" method="post" action="">
             {% csrf_token %}
-            {% for field in form %}
-                {% include 'common/form.html' %}
-            {% endfor %}
+        
+            {{ form.as_p }}
+        
             {{ issuepanel_form.management_form }}
             {% for form in issuepanel_form.forms %}
                 {{ form.as_p }}
             {% endfor %}
-            <button type="submit" class="btn white-text black">Add</button>
+        
+            <input type="submit" value="Add Car" class="submit"/>
         </form>
     </div>
 {% endblock body %}
+    

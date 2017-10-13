@@ -48,7 +48,15 @@
                 
         {% endif %}
             
-        <iframe src="{{comic.issue_file.url}}" style="width:100%; height:700px; margin-top: 10px;" frameborder="0"></iframe>
+        {% if comic.issue_file %}
+            <iframe src="{{comic.issue_file.url}}" style="width:100%; height:700px; margin-top: 10px;" frameborder="0"></iframe>
+        {% endif %}
+
+        <a href="{% url 'comics:panel-upload' comic.id %}" class="comment-btn">
+            <button class="btn white-text black">
+                Add Panels
+            </button>
+        </a>
 
         <a href="{% url 'comics:comment-add' comic.id %}" class="comment-btn">
             <button class="btn white-text black">
