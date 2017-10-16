@@ -15,7 +15,8 @@
                 {% include 'common/form.html' %}
             {% endfor %}
             <button type="submit" class="btn white-text black">Log in</button>
-            <a href="{% url 'userprofile:signup' %}">New to My Site? Sign up</a>
+            <p><a href="{% url 'userprofile:signup' %}">New to My Site? Sign up</a></p>
+            <p><a href="{% url 'userprofile:password_reset' %}">Forgot Password?</a></p>
         </form>
     </div>
 </div>

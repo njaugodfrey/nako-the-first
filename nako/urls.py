@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('home.urls')),
     url('', include('userprofile.urls')),
+    url('^', include('django.contrib.auth.urls')),
     url('', include('comics.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + \
               static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
