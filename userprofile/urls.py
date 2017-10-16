@@ -21,6 +21,9 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, 
         {'template_name': 'userprofile/password_reset_complete.html'}, name='password_reset_complete'
         ),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.activate, name='activate'
+        ),
     url(r'^account/basic/$', views.UserUpdateView.as_view(), name='user-profile-basic'),
     url(r'^account/extra/$', views.ProfileUpdateView.as_view(), name='user-profile-extra'),
     url(r'^u/(?P<slug>[-\w\d]+)/$', views.ProfileDetailView.as_view(), name='user-profile'),
