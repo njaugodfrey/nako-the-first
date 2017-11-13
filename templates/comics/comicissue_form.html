@@ -13,10 +13,6 @@
             {% for field in form %}
                 {% include 'common/form.html' %}
             {% endfor %}
-            {{ issuepanel_form.management_form }}
-            {% for form in issuepanel_form.forms %}
-                {{ form.as_p }}
-            {% endfor %}
             <button type="submit" class="btn white-text black">Add</button>
         </form>
     </div>

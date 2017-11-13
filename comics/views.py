@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import ComicSeries, ComicIssue, Comment, IssuePanel
-from .forms import CommentForm, ComicIssueForm, IssuePanelForm, IssuePanelFormSet
+from .forms import CommentForm, PanelsForm
 
 # Create your views here.
 
@@ -87,7 +87,7 @@ class IssueDetailView(generic.DetailView):
 class ComicIssueCreate(LoginRequiredMixin, CreateView):
     model = ComicIssue
     slug_field = 'comicseries_id'
-    fields = ['issue', 'issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file']
+    form_class = PanelsForm
     
     def form_valid(self, form):
         obj = form.save(commit=False)

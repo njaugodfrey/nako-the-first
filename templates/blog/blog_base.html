@@ -1,0 +1,83 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <!-- Basic Page Needs
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta charset="utf-8">
+        <title>
+            {% block title %}
+                
+            {% endblock title %}
+        </title>
+
+        <!-- SEO Metas
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        
+        {% block meta %}
+            
+        {% endblock meta %}
+            
+
+        <!-- Mobile Specific Metas
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- FONTS & ICONS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- CSS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}" media="screen,projection"/>
+        <link rel="stylesheet" href="{% static 'css/nako.css' %}"/>
+
+        <!-- JavaScript
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <script src="{% static 'scripts/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'materialize/js/materialize.min.js' %}"></script>
+        <script src="{% static 'succinct/jQuery.succinct.min.js' %}"></script>
+        <script src="{% static 'succinct/jQuery.succinct.js' %}"></script>
+
+        <!-- Favicon
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="icon" type="image/png" href="{% static 'images/favicon.svg' %}">
+
+    </head>
+    
+    <body>
+
+        <!-- Primary Page Layout
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+        <header>
+            {% include 'blog/blog_header.html' %}
+        </header>
+
+        <main>
+            
+            {% block body %}
+                
+            {% endblock body %}
+                
+        </main>
+        
+        {% include 'header/header_script.html' %}
+        
+        {% block javascript %}
+            
+        {% endblock javascript %}
+            
+       
+       {% block footer %}
+           
+       {% endblock footer %}
+           
+
+        <!-- End Document
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    </body>
+</html>

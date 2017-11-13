@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+
+{% block title %}
+    Add new blog post
+{% endblock title %}
+
+
+{% block body %}
+    
+    {% if user.is_staff %}
+        <div class="container">
+            <h2>Add new blog post</h2>
+            <form class="form", action="", method="POST", enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% include 'common/form.html' %}
+                {% endfor %}
+                <button type="submit" class="btn white-text black">Post</button>
+            </form>
+        </div>
+    {% endif %}
+        
+{% endblock body %}

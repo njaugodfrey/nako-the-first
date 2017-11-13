@@ -1,13 +1,21 @@
 from django import forms
-from django.forms.models import inlineformset_factory
+from multiupload.fields import MultiFileField
 from .models import Comment, IssuePanel, ComicIssue
 
-class ComicIssueForm(forms.ModelForm):
+class PanelsForm(forms.ModelForm):
 
     class Meta:
 
         model = ComicIssue
         fields = ('issue', 'issue_title', 'issue_cover', 'issue_description', 'issue_cover', 'issue_file')
+    
+    panels = MultiFileField(min_num=1, max_num=20, max_file_size=2048*2048*5)
+
+    def save(self, commit=True):
+        instance = super(PanelsForm, self).save()
+        for each in self.cleaned_data['panels']:
+            IssuePanel.objects.create(panel=each, issue=instance)
+        return instance
 
 
 class CommentForm(forms.ModelForm):
@@ -18,12 +26,3 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('text',)
     
-class IssuePanelForm(forms.ModelForm):
-
-    class Meta:
-
-        model = IssuePanel
-        fields = ('panel',)
-
-
-IssuePanelFormSet = inlineformset_factory(ComicIssue, IssuePanel, form=IssuePanelForm, extra=3)

@@ -1,0 +1,83 @@
+{% extends 'blog/blog_base.html' %}
+
+{% block title %}
+    Nako | Blog and Tutorials
+{% endblock title %}
+
+{% block meta %}
+    <meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"               content="website" />
+
+    {% for p in all_posts %}
+        <meta property="og:title"              content="{{ p.title }}" />
+        <meta property="og:description"        content="{{ p.text }}" />
+        <meta property="og:image"              content="{{ p.image }}" />
+    {% endfor %}
+{% endblock meta %}
+
+{% block body %}
+    <div class="container">
+        
+        {% if all_posts %}
+            {% for post in all_posts %}
+                <div class="">
+                    <a class="" href="{% url 'blog:blog-detail' post.slug post.id %}">
+                        <p>{{post.title}}</p>
+                    </a>
+                    <p>{{post.author}}</p>
+                    
+                    {% if post.image %}
+                        <img class="responsive-img" src="{{post.image.url}}"/>
+                    {% endif %}
+                    
+                    <p class="minimize">{{post.text}}</p>
+                    <script>
+                        $(function(){
+                        $('.minimize').succinct({
+                            size: 500
+                        });
+                        });
+                    </script>                    
+                </div>
+            {% endfor %}
+
+            <div class="">
+                
+                {% if is_paginated %}
+                    <ul class="pagination">
+                        
+                        {% if all_posts.has_previous %}
+                            <li class="waves-effect"><a href="?page={{ all_posts.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+                        {% else %}
+                            <li class="disabled"><i class="material-icons">chevron_left</i></li>
+                        {% endif %}
+                        
+                        {% for i in paginator.page_range %}
+                            
+                            {% if all_posts.number == i %}
+                                <li class="active"><a href="!#"></a></li>
+                            {% else %}
+                                <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                                
+                        {% endfor %}
+                        
+                        {% if all_posts.has_next %}
+                            <li class="waves-effect"><a href="?page={{ all_posts.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+                        {% else %}
+                            <li class="disabled"><i class="material-icons">chevron_right</i></li>
+                        {% endif %}
+                            
+                    </ul>
+                {% endif %}
+                    
+            </div>
+
+        {% else %}
+            <p>There are no posts</p>
+        {% endif %}
+            
+    </div>
+{% endblock body %}
+    
+    

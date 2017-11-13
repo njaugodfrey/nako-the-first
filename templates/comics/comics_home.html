@@ -30,7 +30,7 @@
                         <div class="card horizontal z-depth-4">
                             <div class="card-image">
                                 <a class="green-text darken-3" href="{% url 'comics:series_detail' series.slug series.id %}">
-                                    <img class="responsive-img" style="max-height:20em;" src="{{series.cover.url}}"/>
+                                    <img class="responsive-img" src="{{series.cover.url}}"/>
                                 </a>
                             </div>
                             <div class="card-stacked">
@@ -46,7 +46,7 @@
                                     <script>
                                         $(function(){
                                         $('.minimize').succinct({
-                                            size: 100
+                                            size: 500
                                         });
                                         });
                                     </script>

@@ -1,0 +1,36 @@
+{% extends 'blog/blog_base.html' %}
+
+{% block title %}
+    Nako | {{post.title}}
+{% endblock title %}
+
+{% block meta %}
+<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+<meta property="og:type"               content="website" />
+<meta property="og:title"              content="{{ post.title }}" />
+<meta property="og:title"              content="{{ post.author.get_full_name }}" />
+<meta property="og:description"        content="{{ post.text }}" />
+<meta property="og:image"              content="{{ post.image.url }}" />
+{% endblock meta %}
+
+{% block body %}
+    <div class="container">
+        <h3>{{post.title}}</h3>
+        <p>
+            Post by:
+            <a href="{% url 'userprofile:user-profile' post.author.username %}">
+                @{{post.author}}
+            </a>
+        </p>
+        {% if post.image %}
+            <img class="responsive-img" src="{{post.image.url}}"/>
+        {% endif %}
+        
+        <p>{{post.text}}</p>
+    </div>
+{% endblock body %}
+
+{% block footer %}
+    {% include 'footer/footer.html' %}
+{% endblock footer %}
+    
