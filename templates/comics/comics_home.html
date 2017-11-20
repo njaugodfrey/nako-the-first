@@ -18,9 +18,13 @@
 
 {% block body %}
     <div class="container">
-        <a href="{% url "comics:comic-series-add" %}">
-            <button class="btn white-text black">Add Series</button>
-        </a>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url "comics:comic-series-add" %}">
+                <button class="btn white-text black">Add Series</button>
+            </a>
+        {% endif %}
+            
         
         {% if all_series %}
             <h2>All comics titles</h2>

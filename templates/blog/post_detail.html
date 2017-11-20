@@ -5,12 +5,16 @@
 {% endblock title %}
 
 {% block meta %}
-<meta property="og:url"                content="{{ request.build_absolute_uri }}" />
-<meta property="og:type"               content="website" />
-<meta property="og:title"              content="{{ post.title }}" />
-<meta property="og:title"              content="{{ post.author.get_full_name }}" />
-<meta property="og:description"        content="{{ post.text }}" />
-<meta property="og:image"              content="{{ post.image.url }}" />
+    <meta property="og:url"                content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type"               content="website" />
+    <meta property="og:title"              content="{{ post.title }}" />
+    <meta property="og:title"              content="{{ post.author.get_full_name }}" />
+    <meta property="og:description"        content="{{ post.text }}" />
+
+    {% if post.image %}
+        <meta property="og:image"              content="{{ post.image.url }}" />
+    {% endif %}
+
 {% endblock meta %}
 
 {% block body %}
@@ -27,6 +31,28 @@
         {% endif %}
         
         <p>{{post.text}}</p>
+        
+        <div class="" style="margin-bottom:20px;">
+            {% if user.is_authenticated %}
+            
+                {% if user == post.author %}
+                    <a href="{% url "blog:post-update" post.slug post.id %}">
+                        <button class="btn white-text black">Edit Post</button>
+                    </a>
+                    <!-- Delete -->
+                    <form action="{% url 'blog:post-delete' post.slug post.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value="{{post.slug}} {{post.id}}"/>
+                        <button type="submit" class="btn white-text red darken-2">
+                            Delete
+                        </button>
+                        <small>Delete forever</small>
+                    </form>
+                {% endif %}
+                    
+            {% endif %}
+        </div>
+            
     </div>
 {% endblock body %}
 

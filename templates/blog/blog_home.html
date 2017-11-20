@@ -17,27 +17,39 @@
 
 {% block body %}
     <div class="container">
+
+        <div class="">
+            
+            {% if user.is_authenticated %}
+                <a href="{% url "blog:post-create" %}">
+                    <button class="btn white-text black">New Post</button>
+                </a>
+            {% endif %}
+                
+        </div>
         
         {% if all_posts %}
             {% for post in all_posts %}
-                <div class="">
-                    <a class="" href="{% url 'blog:blog-detail' post.slug post.id %}">
-                        <p>{{post.title}}</p>
-                    </a>
-                    <p>{{post.author}}</p>
-                    
-                    {% if post.image %}
-                        <img class="responsive-img" src="{{post.image.url}}"/>
-                    {% endif %}
-                    
-                    <p class="minimize">{{post.text}}</p>
-                    <script>
-                        $(function(){
-                        $('.minimize').succinct({
-                            size: 500
-                        });
-                        });
-                    </script>                    
+                <div class="" style="margin-bottom: 30px;">
+                        <div class="">
+                            <a class="" href="{% url 'blog:post-detail' post.slug post.id %}">
+                                <h4>{{post.title}}</h4>
+                            </a>
+                            <p>{{post.author}}</p>
+                            
+                            {% if post.image %}
+                                <img class="responsive-img" src="{{post.image.url}}"/>
+                            {% endif %}
+                            
+                            <p class="minimize">{{post.text}}</p>
+                            <script>
+                                $(function(){
+                                $('.minimize').succinct({
+                                    size: 500
+                                });
+                                });
+                            </script>                    
+                        </div>
                 </div>
             {% endfor %}
 
@@ -80,4 +92,7 @@
     </div>
 {% endblock body %}
     
+{% block footer %}
+    {% include 'footer/footer.html' %}
+{% endblock footer %}
     

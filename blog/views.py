@@ -31,7 +31,7 @@ class PostListView(generic.ListView):
     template_name = "blog/blog_home.html"
 
 
-class PostDetailView(generic.DetailView):
+class PostDetail(generic.DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = 'post'
@@ -44,13 +44,30 @@ class PostUpdate(LoginRequiredMixin, generic.UpdateView):
     def user_passes_test(self, request):
         if request.user.is_authenticated():
             self.object = self.get_object()
-            return self.object.user == request.user
+            return self.object.author == request.user
         return False
 
     def dispatch(self, request, *args, **kwargs):
         if not self.user_passes_test(request):
-            return redirect('comics:comics_home')
-        return super(ComicSeriesUpdate, self).dispatch(request, *args, **kwargs)
+            return redirect('blog:blog_home')
+        return super(PostUpdate, self).dispatch(request, *args, **kwargs)
+
+
+class PostDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Post
+    success_url = reverse_lazy('blog:blog_home')
+
+    def user_passes_test(self, request):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            return self.object.author == request.user
+        return False
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.user_passes_test(request):
+            return redirect('blog:blog_home')
+        return super(PostDelete, self).dispatch(request, *args, **kwargs)
+
 
 
 class SearchListView(PostListView):

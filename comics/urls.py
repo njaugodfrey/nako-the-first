@@ -5,9 +5,9 @@ app_name = 'comics'
 
 urlpatterns = [
     url(r'^comics/$', views.ComicsHome.as_view(), name='comics_home'),
-    url(r'^comic/(?P<slug>[-\w\d]+)-(?P<pk>[0-9]+)/$',views.ComicsDetailView.as_view(), name='series_detail'),
+    url(r'^comic/series/(?P<slug>[-\w\d]+)-(?P<pk>[0-9]+)/$',views.ComicsDetailView.as_view(), name='series_detail'),
     url(r'^comic/series/add/$', views.ComicSeriesCreate.as_view(), name='comic-series-add'),
-    url(r'^comic/series/(?P<slug>[-\w\d]+)-(?P<pk>[0-9]+)/$', 
+    url(r'^comic/series/(?P<slug>[-\w\d]+)-(?P<pk>[0-9]+)/update/$', 
             views.ComicSeriesUpdate.as_view(), name='comic-series-update'
         ),
     url(r'^comic/series/(?P<slug>[-\w\d]+)-(?P<pk>[0-9]+)/delete/$', 
