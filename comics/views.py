@@ -80,6 +80,7 @@ class IssueDetailView(generic.DetailView):
     
     def get_context_data(self, **kwargs):
         context = super(IssueDetailView, self).get_context_data(**kwargs)
+        context['panels'] = IssuePanel.objects.filter(issue=self.object.id).select_related()
         context['comments'] = Comment.objects.filter(issue=self.object.id).select_related()
         return context
     

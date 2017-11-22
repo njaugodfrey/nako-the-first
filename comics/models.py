@@ -67,8 +67,6 @@ class ComicIssue(models.Model):
 
 
 class IssuePanel(models.Model):
-
-    # TODO: Define fields here
     issue = models.ForeignKey(ComicIssue, on_delete=models.CASCADE)
     panel = models.FileField(upload_to='comic_issues_files/panels/')
     date_uploaded = models.DateTimeField(auto_now_add=True)

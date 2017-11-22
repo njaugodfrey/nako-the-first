@@ -1,9 +1,5 @@
-{% if usr.profile.header %}
-    <img class="img-fluid" src="{{ usr.profile.header.url}}">
-{% endif %}
-
 <div class="">
-    <img class="circle" src="{{ usr.profile.avatar.url }}" alt="Generic placeholder image">
+    <img class="responsive-img circle" src="{{ usr.profile.avatar.url }}" alt="Profile Image">
     <div class="">
     <h5 class="">
         {{ usr.get_full_name }} 
@@ -14,28 +10,33 @@
         {% if user.is_authenticated %}
             
             {% if user == usr.profile.user %}
-                <p><a href="{% url 'userprofile:user-profile-basic' %}">Edit basic details</a></p>
-                <p><a href="{% url 'userprofile:user-profile-extra' %}">Edit profile</a></p>
-                <p><a href="{% url 'userprofile:password_reset' %}">Reset Password</a></p>
+                <div class="profile-list">
+                    <button class="white"><a href="{% url 'userprofile:user-profile-basic' %}">Edit basic details</a></button>
+                    <button class="white"><a href="{% url 'userprofile:user-profile-extra' %}">Edit profile</a></button>
+                    <button class="white"><a href="{% url 'userprofile:password_reset' %}">Reset Password</a></button>
+                    <button class="white"><a href="{% url "comics:comic-series-add" %}">Add Series</a></button>
+                </div>
             {% endif %}
-
-            <p><a href="{% url "comics:comic-series-add" %}">Add Series</a></p>
                 
         {% endif %}
     </small>
-    <p class="">{{ usr.profile.bio }}</p>
     <ul class="">
+        <li>
+            <p class="">{{ usr.profile.bio }}</p>
+        </li>
         <li>
             <i class="" aria-hidden="true"></i> 
             <a href="http://maps.google.com/?q={{ usr.profile.location }}" target="_blank">{{ usr.profile.location }}</a>
         </li>
         <li><i class="" aria-hidden="true"></i> <a href="{{ usr.profile.website }}" target="_blank">{{ usr.profile.website }}</a></li>
-        <li><i class="" aria-hidden="true"></i> {{ usr.date_joined }}</a></li>
         <li><i class="" aria-hidden="true"></i> {{ usr.profile.date_birth }}</a></li>
         </li>
         
         {% if user == usr.profile.user %}
-            <li><i class="" aria-hidden="true"></i> Last Login: {{ usr.last_login }}</li>
+            <small>
+                <li><i class="" aria-hidden="true"></i> {{ usr.date_joined }}</a></li>
+                <li><i class="" aria-hidden="true"></i> Last Login: {{ usr.last_login }}</li>
+            </small>
         {% endif %}
     </ul>
     </div>

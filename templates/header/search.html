@@ -1,7 +1,5 @@
 <form action="{% url 'home:search-results' %}" method="get" accept-charset="utf-8">
-    <div class="input-field">
+    <div class="input-field" style="margin-top: 20px;">
         <input id="search" name="q" type="search" placeholder="Search" value="{{ request.GET.q }}" required>
-        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-        <i class="material-icons">close</i>
     </div>
 </form>

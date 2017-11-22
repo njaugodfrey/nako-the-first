@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ComicIssue, ComicSeries, Comment
+from .models import ComicIssue, ComicSeries, Comment, IssuePanel
 
 # Register your models here.
 
@@ -15,3 +15,5 @@ class ComicIssueAdmin(admin.ModelAdmin):
 admin.site.register(ComicIssue, ComicIssueAdmin)
 
 admin.site.register(Comment)
+
+admin.site.register(IssuePanel)
